@@ -10,24 +10,24 @@ describe Food do
     expect(food).to be_valid
   end
 
-  it 'is invalid without a name' do
-    food = Food.new(
-      name: nil,
-      description: 'Betawi style steamed rice cooked in coconut milk. Delicious!',
-      price: 10000.0
-    )
-    food.valid?
-    expect(food.errors[:name]).to include("can't be blank")
-  end
+  describe 'invalid without name or description' do
+    before :each do
+      @food = Food.new(
+        name: nil,
+        description: nil,
+        price: 10000.0
+      )
+    end
 
-  it 'is invalid without a description' do
-    food = Food.new(
-      name: 'Nasi Uduk',
-      description: nil,
-      price: 10000.0
-    )
-    food.valid?
-    expect(food.errors[:description]).to include("can't be blank")
+    it 'is invalid without name' do
+      @food.valid?
+      expect(@food.errors[:name]).to include("can't be blank")
+    end
+
+    it 'is invalid without description' do
+      @food.valid?
+      expect(@food.errors[:description]).to include("can't be blank")
+    end
   end
 
   it 'is invalid with a duplicate name' do
