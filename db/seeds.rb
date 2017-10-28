@@ -45,3 +45,23 @@ Food.create!(
   image_url: 'sate_matang.jpeg',
   price: 20000.0
 )
+
+Buyer.delete_all
+
+Buyer.create!(
+  email: 'nurratnasarii@gmail.com',
+  phone: '085277206510',
+  address: 'Banda Aceh'
+)
+
+Buyer.create!(
+  email: 'qurin@gmail.com',
+  phone: '085277206220',
+  address: 'Surabaya'
+)
+
+Buyer.create!(
+  email: 'ajeng@gmail.com',
+  phone: '085277206220',
+  address: 'Bekasi'
+)
