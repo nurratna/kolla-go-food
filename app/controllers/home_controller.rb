@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def hello
     @time = Time.now
-    # @users = User.all
+    @users = User.all
   end
 
   def goodbye
