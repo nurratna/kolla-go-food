@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Buyers</h1>
+
+<table>
+  <% @buyers.each do |buyer| %>
+    <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+      <td>
+        <%= image_tag('user.svg', class: 'list_image') %>
+      </td>
+      <td class="list_description">
+        <dl>
+          <dt><%= buyer.email %></dt>
+          <dd><%= truncate(strip_tags(buyer.phone)) %></dd>
+          <dd><%= truncate(strip_tags(buyer.address)) %></dd>
+        </dl>
+      </td>
+      <td class="list_actions">
+        <%= link_to 'Show', buyer %><br/>
+        <%= link_to 'Edit', edit_buyer_path(buyer) %><br/>
+        <%= link_to 'Destroy', buyer, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br>
+
+<%= link_to 'New Buyer', new_buyer_path %>
