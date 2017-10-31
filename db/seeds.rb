@@ -65,3 +65,13 @@ Buyer.create!(
   phone: '085277206220',
   address: 'Bekasi'
 )
+
+Categories.delete_all
+
+Categories.create!(
+  name: 'Indonesian Food'
+)
+
+Categories.create!(
+  name: 'Japanese Food'
+)
