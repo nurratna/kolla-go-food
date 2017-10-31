@@ -33,6 +33,15 @@ RSpec.describe Cart, type: :model do
     food = create(:food, name: "Nasi Uduk")
     line_item = create(:line_item, food: food, cart: cart)
 
-    expect(cart.add_food(food).quantity).to eq(2)	
+    expect(cart.add_food(food).quantity).to eq(2)
+  end
+
+  it "can caculate total price of line_items" do
+    cart = create(:cart)
+    food = create(:food, price: 20000.0)
+    line_item1 = create(:line_item, quantity: 2, food: food, cart: cart)
+    line_item2 = create(:line_item, quantity: 1, food: food, cart: cart)
+
+    expect(cart.total_price).to eq(60000.0)
   end
 end
