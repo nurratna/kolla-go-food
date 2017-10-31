@@ -33,6 +33,10 @@ RSpec.describe Cart, type: :model do
     food = create(:food, name: "Nasi Uduk")
     line_item = create(:line_item, food: food, cart: cart)
 
-    expect(cart.add_food(food).quantity).to eq(2)	
+    expect(cart.add_food(food).quantity).to eq(2)
+  end
+
+  it "does not remove the other user's cart" do
+    expect(cart.remove_cart(cart))
   end
 end
