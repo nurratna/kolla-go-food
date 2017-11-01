@@ -174,6 +174,11 @@ RSpec.describe CartsController, type: :controller do
         delete :destroy, params: { id: @cart.id }, session: valid_session
         expect(session[:cart_id]).to eq(nil)
       end
+
+      it 'redirects to stroe#index' do
+        delete :destroy, params: { id: @cart.id }, session: valid_session
+        expect(response).to redirect_to(store_index_url)
+      end
     end
 
     context 'with invalid cart_id' do
@@ -186,7 +191,7 @@ RSpec.describe CartsController, type: :controller do
 
       it 'redirects to stroe#index' do
         delete :destroy, params: { id: @cart.id }, session: valid_session
-        expect(response).to redirect_to store_index_path
+        expect(response).to redirect_to(store_index_url)
       end
     end
   end
