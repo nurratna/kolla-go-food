@@ -16,7 +16,7 @@ class Cart < ApplicationRecord
   def total_price
     total_price = 0.0
     line_items.each do |item|
-      total_price += item.quantity * item.food.price
+      total_price += item.total_price
     end
     total_price
   end
