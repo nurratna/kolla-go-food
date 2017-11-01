@@ -4,6 +4,8 @@ FactoryGirl.define do
 		description { Faker::Food.ingredient }
 		price 10000.0
 		image_url 'image.png'
+
+		association :category
 	end
 
 	factory :invalid_food, parent: :food do
