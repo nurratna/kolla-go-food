@@ -5,11 +5,23 @@ Go-Food is a simplified Web Apps based on Ruby on Rails. In This Web Apps will s
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+* Ruby version
 
+* System dependencies
 
-## What you need
-* Ruby version 2.4.2
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
 
 
 ### Installing
@@ -59,3 +71,5 @@ kamu bisa mengenerate MVC dengan perintah rails generate atau rails g dan cek pe
 $ rails generate Controller Home hello
 $ git status
 ```
+modified config/routes.rb
+app
