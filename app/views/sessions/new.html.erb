@@ -1,0 +1,25 @@
+<div class="go_food_form">
+  <% if flash[:alert] %>
+    <p id='notice'><%= notice %></p>
+  <% end %>
+
+  <%= form_tag do %>
+    <fieldset>
+      <legend>Please Login</legend>
+
+      <div>
+        <%= label_tag :username, 'Username:' %>
+        <%= text_field_tag :username, params[:username] %>
+      </div>
+
+      <div>
+        <%= label_tag :password, 'Password:' %>
+        <%= text_field_tag :password, params[:password] %>
+      </div>
+
+      <div>
+        <%= submit_tag 'login' %>
+      </div>
+    </fieldset>
+  <% end %>
+</div>
