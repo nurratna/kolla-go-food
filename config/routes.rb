@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :foods
   resources :line_items
   resources :orders
+  resources :users
 
   get 'home/hello'
   get 'home/goodbye'
