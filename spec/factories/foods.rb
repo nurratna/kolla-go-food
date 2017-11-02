@@ -1,14 +1,13 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
-  factory :category do
-    # name { Faker::Food.dish }
-    sequence :name do |n|
-      "category#{n}"
-    end
+  factory :food do
+    name { Faker::Food.dish }
+    description { Faker::Food.ingredient }
+    price 10000.0
   end
 
-  factory :invalid_category, parent: :category do
+  factory :invalid_food, parent: :food do
     name nil
+    description nil
+    price 1000.0
   end
 end
