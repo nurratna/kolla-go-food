@@ -81,6 +81,11 @@ describe OrdersController do
 
   describe  'POST #create' do
     context 'with valid attributes' do
+      before :each do
+        @cart = create(:cart)
+        session[:cart_id] = @cart.id
+      end
+      
       it 'save the new order in the database' do
         expect{
           post :create, params: { order: attributes_for(:order) }
