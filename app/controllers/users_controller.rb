@@ -46,7 +46,7 @@ class UsersController < ApplicationController
         format.json { render :show, status: :ok, location: @user }
 
         @users = User.all
-        ActionCable.server.broadcast 'users', html: render_to_string('store/index', layout: false)
+        # ActionCable.server.broadcast 'users', html: render_to_string('users/index', layout: false)
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
