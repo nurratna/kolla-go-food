@@ -9,7 +9,8 @@ describe OrdersController do
     it 'populate an array of all orders' do
       order1 = create(:order, name: 'Buyer 1')
       order2 = create(:order, name: 'Buyer 2')
-      expect(assigns(:orders)).to match_array9[order1, order2]
+      get :index
+      expect(assigns(:orders)).to match_array([order1, order2])
     end
 
     it 'renders the :index tempalate' do
@@ -26,7 +27,8 @@ describe OrdersController do
     end
 
     it 'renders the :show template' do
-      get :show, params { id: order }
+      order = create(:order)
+      get :show, params: { id: order }
       expect(response).to render_template :show
     end
   end
@@ -35,7 +37,7 @@ describe OrdersController do
     context 'with non-empty cart' do
       before :each do
         @cart = create(:cart)
-        session[:cart_id] = @cart_id
+        session[:cart_id] = @cart.id
         @line_item = create(:line_item, cart: @cart)
       end
 
@@ -46,33 +48,33 @@ describe OrdersController do
 
       it 'renders the :new template' do
         get :new
-        expect(response).to render_template :new.
+        expect(response).to render_template :new
       end
     end
 
-    context 'wwith empty cart' do
+    context 'with empty cart' do
       before :each do
         @cart = create(:cart)
-        session[:cart_id] = @cart_id
+        session[:cart_id] = @cart.id
       end
 
       it 'redirect to the store index page' do
         get :new
-        expect(:response).to redirect_to store_index_url
+        expect(:response).to redirect_to('store_index_path')
       end
     end
   end
 
   describe 'GET #edit' do
     it 'assigns the requested order to @order' do
-      eorder = create(:order)
+      order = create(:order)
       get :edit, params: { id: order }
       expect(assigns(:order)).to eq order
     end
 
     it 'renders the :edit template' do
       order = create(:order)
-      get :edit, params { id: order }
+      get :edit, params: { id: order }
       expect(response).to render_template :edit
     end
   end
@@ -93,24 +95,24 @@ describe OrdersController do
 
       it "removes the cart from session's params" do
         post :create, params: { order: attributes_for(:order) }
-        expect(session[cart_id]).to eq(nil)
+        expect(session[:cart_id]).to eq(nil)
       end
 
       it 'redirects to store index page' do
         post :create, params: { order: attributes_for(:order) }
-        expect(response).to redirect_to store_index_url
+        expect(response).to redirect_to store_index_path
       end
     end
 
     context 'with invalid attributes' do
       it 'does not save the new order in the database' do
         expect{
-          post :create, params { order: attributes_for(:invalid_order) }
+          post :create, params: { order: attributes_for(:invalid_order) }
         }.not_to change(Order, :count)
       end
 
       it 're-renders the :new template' do
-        get :new
+        get :create, params: { order: attributes_for(:invalid_order) }
         expect(response).to render_template :new
       end
     end
@@ -129,20 +131,20 @@ describe OrdersController do
       end
 
       it "change @order'attributes" do
-        patch :update, params { id: @order, order: attributes_for(:order, name: 'Buyer 1') }
+        patch :update, params: { id: @order, order: attributes_for(:order, name: 'Buyer 1') }
         @order.reload
         expect(@order.name).to eq('Buyer 1')
       end
 
       it 'redirects to the order' do
-        patch :update, params: {id: attributes_for(:order) }
+        patch :update, params: {id: @order, order: attributes_for(:order) }
         expect(response).to redirect_to @order
       end
     end
 
     context 'with invalid' do
 			it "does not update the order in the database" do
-        patch :update, params: { id: @order, order: attributes_for(:order, name: 'Buyer 1') }
+        patch :update, params: { id: @order, order: attributes_for(:order, name: 'Buyer 1', address: nil) }
         @order.reload
         expect(@order.name).not_to eq('Buyer 1')
       end

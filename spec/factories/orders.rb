@@ -6,7 +6,7 @@ FactoryGirl.define do
     payment_type 'Cash'
   end
 
-  factory :invalid_order do
+  factory :invalid_order, parent: :order do
     name nil
     address nil
     email nil
