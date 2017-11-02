@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @order.id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @order.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @order.address %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @order.email %>
+</p>
+
+<p>
+  <strong>Payment Type:</strong>
+  <%= @order.payment_type %>
+</p>
+
+<p>
+  <strong>Total Price</strong>
+  <%= @order.total_price %>
+</p>
+
+
+<table border="2">
+  <tr>
+    <td>Food</td>
+    <td>Price</td>
+    <td>Quantity</td>
+    <td>Total Price</td>
+  </tr>
+  <% @order.line_items.each do |item| %>
+    <tr>
+      <td><%= item.food.name %></td>
+      <td><%= item.food.price %></td>
+      <td><%= item.quantity %></td>
+      <td><%= item.total_price %></td>
+    </tr>
+    <% end %>
+</table>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

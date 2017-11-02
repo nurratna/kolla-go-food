@@ -1,2 +1,33 @@
-<h1>Orders#index</h1>
-<p>Find me in app/views/orders/index.html.erb</p>
+<p id="notice"><%= notice %></p>
+
+<h1>orders</h1>
+
+<table border="2">
+  <tr>
+    <td>Id</td>
+    <td>Nama</td>
+    <td>Address</td>
+    <td>Email</td>
+    <td>Payment Type</td>
+    <td>Total Price</td>
+  </tr>
+  <% @orders.each do |order| %>
+    <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+      <td><%= order.id %></td>
+      <td><%= order.name %></td>
+      <td><%= order.address %></td>
+      <td><%= order.email %></td>
+      <td><%= order.payment_type %></td>
+      <td><%= order.total_price %></td>
+      <td class="list_actions">
+        <%= link_to 'Show', order %>
+        <%= link_to 'Edit', edit_order_path(order) %>
+        <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br>
+
+<%= link_to 'New order', store_index_path %>
