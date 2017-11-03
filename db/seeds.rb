@@ -17,7 +17,7 @@ Food.create!(
       Mie Aceh ini memang punya ciri khas dan cita rasa yang unik, enak dan tiada duanya.
       Hal ini dikarenakan bumbu yang digunakan untuk memasak ini penuh dengan rempah-rempah.
     </p>},
-  image_url: 'mie_aceh.jpeg',
+  image_url: 'mie_aceh.jpg',
   price: 30000.0
 )
 
@@ -29,7 +29,7 @@ Food.create!(
       Ayam Tangkap adalah masakan dengan bahan utama ayam yang telah dipotong-potong
       lalu dimasak bersama cabe hijau, daun pandan, dan daun kari/daun teumuru.
     </p>},
-  image_url: 'ayam_tangkap.jpeg',
+  image_url: 'ayam_tangkap.jpg',
   price: 35000.0
 )
 
@@ -42,7 +42,7 @@ Food.create!(
       lalu diberi bumbu kecap dan saus kacang, lho.
       Sate matang justru disajikan dengan cara disiram dengan kuah soto yang gurih.
     </p>},
-  image_url: 'sate_matang.jpeg',
+  image_url: 'sate_matang.jpg',
   price: 20000.0
 )
 
@@ -64,14 +64,4 @@ Buyer.create!(
   email: 'ajeng@gmail.com',
   phone: '085277206220',
   address: 'Bekasi'
-)
-
-Categories.delete_all
-
-Categories.create!(
-  name: 'Indonesian Food'
-)
-
-Categories.create!(
-  name: 'Japanese Food'
 )
