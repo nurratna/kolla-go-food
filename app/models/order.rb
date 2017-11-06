@@ -8,7 +8,7 @@ class Order < ApplicationRecord
   }
 
   validates :name, :address, :email, :payment_type, presence: true
-  validates :email, uniqueness: true, format: {
+  validates :email, format: {
 		with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
 		message: "invalid email format"
 	}

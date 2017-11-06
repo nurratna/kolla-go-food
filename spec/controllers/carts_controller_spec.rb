@@ -20,6 +20,11 @@ require 'rails_helper'
 
 RSpec.describe CartsController, type: :controller do
 
+  before :each do
+    user = create(:user)
+    session[:user_id] = user.id
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Cart. As you add validations to Cart, be sure to
   # adjust the attributes here as well.
