@@ -22,6 +22,16 @@
   </div>
 
   <div class="field">
+    <%= form.label :tag %>
+    <% for tag in Tag.all %>
+      <div>
+        <%= check_box_tag "food[tag_ids][]", tag.id, @food.tags.include?(tag) %>
+        <%= tag.name %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field">
     <%= form.label :image_url %>
     <%= form.text_field :image_url, id: :food_image_url %>
   </div>
