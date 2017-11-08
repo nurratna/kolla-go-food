@@ -40,7 +40,9 @@ describe Order do
   end
 
   it 'is invalid with wrong payment_type' do
-    expect{ build(:order, payment_type: 'Go Pay') }.to raise_error(ArgumentError)
+    expect{
+      build(:order, payment_type: 'grab pay')
+    }.to raise_error(ArgumentError)
   end
 
   describe 'adding line_items from cart' do
@@ -62,6 +64,66 @@ describe Order do
         @order.add_line_items(@cart)
         @order.save
       }.to change(@cart.line_items, :count).by(-1)
+    end
+  end
+
+  describe 'adding voucher to order' do
+    context "with valid voucher" do
+      before :each do
+        @voucher = create(:voucher, code: "PROMO", amount: 15.0, unit: "Percent", max_amount: 2500.0)
+        @cart = create(:cart)
+        @food = create(:food, price: 10000.0)
+        @line_item = create(:line_item, quantity: 2, food: @food, cart: @cart)
+        @order = create(:order, voucher: @voucher)
+        @order.add_line_items(@cart)
+      end
+
+      it "can calculate total_price" do
+        expect(@order.total_price).to eq(20000.0)
+      end
+
+      context "voucher in percent" do
+        it "can calculate discount" do
+          voucher = create(:voucher, amount: 10.0, unit: "Percent")
+          order = create(:order, voucher: voucher)
+          order.add_line_items(@cart)
+          expect(order.discount).to eq(2000.0)
+        end
+
+        it "can calculate final_price" do
+          voucher = create(:voucher, amount: 10.0, unit: "Percent")
+          order = create(:order, voucher: voucher)
+          order.add_line_items(@cart)
+          expect(order.final_price).to eq(18000.0)
+        end
+
+        it "changes discount to max_amount if discount is bigger than max_amount" do
+          voucher = create(:voucher, amount: 15.0, unit: "Percent", max_amount: 1000)
+          order = create(:order, voucher: voucher)
+          order.add_line_items(@cart)
+          expect(order.final_price).to eq(19000.0)
+        end
+      end
+
+      context "voucher in rupiah" do
+        it "can calculate discount" do
+          voucher = create(:voucher, amount: 3000.0, unit: "Rupiah")
+          order = create(:order, voucher: voucher)
+          order.add_line_items(@cart)
+          expect(order.discount).to eq(3000.0)
+        end
+
+        it "can calculate final_price" do
+          voucher = create(:voucher, amount: 3000.0, unit: "Rupiah")
+          order = create(:order, voucher: voucher)
+          order.add_line_items(@cart)
+          expect(order.final_price).to eq(17000.0)
+        end
+      end
+    end
+
+    context "with invalid voucher" do
+      it "can calculate total_price without discount"
     end
   end
 end

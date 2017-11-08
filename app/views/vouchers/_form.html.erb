@@ -1,0 +1,47 @@
+<%= form_with(model: voucher, local: true) do |f| %>
+  <% if voucher.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(voucher.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% voucher.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %>
+    <%= f.text_field :code %>
+  </div>
+
+  <div class="field">
+    <%= f.label :valid_from %>
+    <%= f.date_field :valid_from %>
+  </div>
+
+  <div class="field">
+    <%= f.label :valid_through %>
+    <%= f.date_field :valid_through %>
+  </div>
+
+  <div class="field">
+    <%= f.label :amount %>
+    <%= f.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= f.label :max_amount %>
+    <%= f.text_field :max_amount %>
+  </div>
+
+  <div class="field">
+    <%= f.label :unit %>
+    <%= f.select :unit, Voucher.units.keys, prompt: 'Select a Unit' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

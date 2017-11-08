@@ -24,7 +24,7 @@
         </div>
 
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><%= link_to 'Home', store_index_path %></li>
           <li><a href="#">My Account</a></li>
           <li><a href="#">My Orders</a></li>
         </ul>
@@ -32,6 +32,7 @@
         <% if session[:user_id] %>
           <ul>
             <li><%= link_to 'Orders', orders_path %></li>
+            <li><%= link_to 'Vouchers', vouchers_path %></li>
             <li><%= link_to 'Foods', foods_path %></li>
             <li><%= link_to 'Users', users_path %></li>
             <li></li>

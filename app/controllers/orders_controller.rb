@@ -29,6 +29,8 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.add_line_items(@cart)
+    @order.voucher = Voucher.find_by(code: order_params[:code])
+    # @order.voucher = Voucher.find_by(order_params[:code])
 
     respond_to do |format|
       if @order.save
@@ -76,7 +78,7 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:name, :address, :email, :payment_type)
+      params.require(:order).permit(:name, :address, :email, :payment_type, :code)
     end
 
     def cart_not_empty

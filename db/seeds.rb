@@ -65,3 +65,11 @@ Buyer.create!(
   phone: '085277206220',
   address: 'Bekasi'
 )
+
+User.delete_all
+
+User.create!(
+  username: 'asdf',
+  password: 'asdf123456',
+  password_confirmation: 'asdf123456'
+)
