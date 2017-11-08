@@ -1,0 +1,34 @@
+<h1>Vouchers</h1>
+<table>
+  <thead>
+    <tr>
+      <td>Code</td>
+      <td>Valid From</td>
+      <td>Valid Through</td>
+      <td>Amount</td>
+      <td>Max Amount</td>
+      <td>unit</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @vouchers.each do |voucher| %>
+      <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+        <td><%= voucher.code %></td>
+        <td><%= voucher.valid_from %></td>
+        <td><%= voucher.valid_through %></td>
+        <td><%= voucher.amount %></td>
+        <td><%= voucher.max_amount %></td>
+        <td><%= voucher.unit %></td>
+        <td class="list_actions">
+          <%= link_to 'Show', voucher %>
+          <%= link_to 'Edit', edit_voucher_path(voucher) %>
+          <%= link_to 'Destroy', voucher, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New voucher', new_voucher_path %>
