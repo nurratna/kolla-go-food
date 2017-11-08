@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= f.label :address %>
-    <%= f.text_area :address, rows: 3, cols: 60 %>
+    <%= f.text_area :address, rows: 3, cols: 40 %>
   </div>
 
   <div class="field">
@@ -29,6 +29,11 @@
   <div class="field">
     <%= f.label :payment_type %>
     <%= f.select :payment_type, Order.payment_types.keys, prompt: 'Select a payment type' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :code %>
+    <%= f.collection_select :code, Voucher.all, :code, :code, include_blank: true %>
   </div>
 
   <div class="actions">

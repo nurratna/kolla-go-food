@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
   has_many :line_items, dependent: :destroy
+  belongs_to :voucher, optional: true
+  attr_accessor :code
 
   enum payment_type: {
     "Cash" => 0,
@@ -22,6 +24,40 @@ class Order < ApplicationRecord
   end
 
   def total_price
-    line_items.reduce(0) { |sum, line_item| sum + line_item.total_price }
+    total_price = line_items.reduce(0) { |sum, line_item| sum + line_item.total_price }
   end
+
+  def discount
+    discount = 0
+    if voucher.present?
+      if voucher.unit == "Percent"
+        discount = total_price * voucher.amount / 100
+        discount = voucher.max_amount if discount > voucher.max_amount
+      else
+          discount = voucher.amount
+      end
+    end
+    discount
+  end
+
+  def final_price
+    final_price = total_price
+    if voucher.present?
+        final_price = total_price - discount
+    end
+    final_price
+  end
+
+  # def max_amount_if_bigger_than_amount
+  #   if voucher.present?
+  #     discount = self.discount
+  #     if voucher.unit == "Percent"
+  #       if
+  #     end
+  #   end
+  # end
+  #
+  # end
+
+
 end
