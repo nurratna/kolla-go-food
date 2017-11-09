@@ -1,5 +1,6 @@
 class Food < ApplicationRecord
   has_and_belongs_to_many :tags
+  belongs_to :restaurant, optional: true
   has_many :line_items
   before_destroy :ensure_not_referenced_by_any_line_item
 

@@ -12,7 +12,12 @@
         <dl>
           <dt><%= food.name %></dt>
           <dd><%= truncate(strip_tags(food.description), length: 80) %></dd>
-          
+          <dd><%= Restaurant.find_by(id: :restaurant_id) %></dd>
+          <dd>
+            <% food.tags.each do |tag| %>
+              <%= tag.name %>
+            <% end %>
+          </dd>
         </dl>
       </td>
       <td class="list_actions">

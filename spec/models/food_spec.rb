@@ -89,4 +89,15 @@ describe Food do
     it { should have_many(:line_items) }
     it { should have_and_belong_to_many(:tags) }
   end
+
+  # describe "add tags" do
+  #   it "should save_tag_ids_attributes! after_save" do
+  #     food = create(:food)
+  #     tags = create_list(:tag, 3)
+  #     food.tag_ids = tags.collect(&:id)
+  #     food.save!
+  #     food.reload
+  #     expect(food.tags.collect(&:id)).to match_array tags.collect(&:id)
+  #   end
+  # end
 end

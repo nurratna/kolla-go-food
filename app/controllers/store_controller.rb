@@ -4,6 +4,9 @@ class StoreController < ApplicationController
   before_action :set_cart
 
   def index
-    @foods = Food.order(:name)
+    # @foods = Food.order(:name)
+    @restaurants = Restaurant.order(:name)
+    # @restaurant_name = Restaurant.find_by_name(params[:restaurant_id])
+    @foods = Food.all
   end
 end
