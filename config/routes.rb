@@ -13,15 +13,19 @@ Rails.application.routes.draw do
   get 'home/goodbye'
 
   resources :buyers
-  resources :foods
+  resources :foods do
+    resources :reviews
+  end
   resources :line_items
   resources :orders
   resources :users
   resources :carts
   resources :vouchers
   resources :tags
-  resources :restaurants
-
+  resources :restaurants do
+    resources :reviews
+  end
+  resources :reviews
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

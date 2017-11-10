@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reviews</h1>
+
+<table>
+  <% @reviews.each do |review| %>
+    <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+      <td><%= review.name %></td>
+      <td><%= review.title %></td>
+      <td><%= review.description %></td>
+      <td>
+        <%= link_to 'Show', review %>
+        <%= link_to 'Edit', edit_review_path(review) %>
+        <%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br/>
+
+<%= link_to 'New Review', new_review_path %>
