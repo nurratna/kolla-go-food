@@ -1,37 +1,22 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :load_reviewable
+  skip_before_action :authorize
 
   def index
-    @reviews = Review.all
-  end
-
-  def show
+    # @reviews = Review.all
+    @reviews = Review.where(reviewable_id: @reviewable.id)
   end
 
   def new
     @review = Review.new
-    @reviewable_id
-    @reviewable_type
-    if params[:food_id].present?
-      @reviewable_id = params[:food_id]
-      @reviewable_type = "Food"
-    else
-      @reviewable_id = params[:restaurant_id]
-      @reviewable_type = "Restaurant"
-    end
-    # @review = @reviawable.reviews.new
-  end
-
-  def edit
   end
 
   def create
     @review = Review.new(review_params)
-    # @review = @reviawable.review.new(review_params)
 
     respond_to do |format|
       if @review.save
-        format.html { redirect_to @review, notice: "Review was successfully created" }
+        format.html { redirect_to @reviewable, notice: "Review was successfully created" }
         format.json { render :show, status: :created, location: @review }
       else
         format.html { render :new }
@@ -52,17 +37,13 @@ class ReviewsController < ApplicationController
     end
   end
 
-  def destroy
-    @review.destroy
-    respond_to do |format|
-      format.html { redirect_to reviews_url, notice: 'Review was successfully destroy' }
-      format.json { head :no_content }
-    end
-  end
-
   private
-    def set_review
-      @review = Review.find(params[:id])
+    def load_reviewable
+      if params[:food_id]
+        @reviewable = Food.find_by(id: params[:food_id])
+      elsif params[:restaurant_id]
+        @reviewable = Restaurant.find_by(id: params[:restaurant_id])
+      end
     end
 
     def review_params
