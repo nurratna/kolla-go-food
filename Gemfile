@@ -75,3 +75,5 @@ gem 'jquery-ui-rails'
 gem 'jquery-rails'
 
 gem 'shoulda-matchers'
+gem "chartkick"
+gem 'blazer'
