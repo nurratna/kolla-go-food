@@ -2,38 +2,43 @@
 
 <h1>orders</h1>
 
-<table border="2">
-  <tr>
-    <td>Id</td>
-    <td>Nama</td>
-    <td>Address</td>
-    <td>Email</td>
-    <td>Payment Type</td>
-    <td>Total Price</td>
-    <td>Voucher ID</td>
-    <td>Discount</td>
-    <td>Final Price</td>
-  </tr>
-  <% @orders.each do |order| %>
-    <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
-      <td><%= order.id %></td>
-      <td><%= order.name %></td>
-      <td><%= order.address %></td>
-      <td><%= order.email %></td>
-      <td><%= order.payment_type %></td>
-      <td><%= order.total_price %></td>
-      <td><%= order.voucher_id %></td>
-      <td><%= order.discount %></td>
-      <td><%= order.final_price %></td>
-      <td class="list_actions">
-        <%= link_to 'Show', order %>
-        <%= link_to 'Edit', edit_order_path(order) %>
-        <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </td>
+<% if @orders.blank? %>
+  <h4>There are no orders containing the term</h4>
+<% else %>
+  <table border="2">
+    <tr>
+      <td>Id</td>
+      <td>Nama</td>
+      <td>Address</td>
+      <td>Email</td>
+      <td>Payment Type</td>
+      <td>Total Price</td>
+      <td>Voucher ID</td>
+      <td>Discount</td>
+      <td>Final Price</td>
     </tr>
-  <% end %>
-</table>
+    <% @orders.each do |order| %>
+      <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+        <td><%= order.id %></td>
+        <td><%= order.name %></td>
+        <td><%= order.address %></td>
+        <td><%= order.email %></td>
+        <td><%= order.payment_type %></td>
+        <td><%= order.set_total_price %></td>
+        <td><%= order.voucher_id %></td>
+        <td><%= order.discount %></td>
+        <td><%= order.final_price %></td>
+        <td class="list_actions">
+          <%= link_to 'Show', order %>
+          <%= link_to 'Edit', edit_order_path(order) %>
+          <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
 
 <br>
 
 <%= link_to 'New order', store_index_path %>
+<%= link_to 'Search Orders', orders_search_path %>
