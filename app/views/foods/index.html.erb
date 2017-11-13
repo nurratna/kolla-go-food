@@ -2,33 +2,37 @@
 
 <h1>Foods</h1>
 
-<table>
-  <% @foods.each do |food| %>
-    <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
-      <td>
-        <%= image_tag(food.image_url, class: 'list_image') %>
-      </td>
-      <td class="list_description">
-        <dl>
-          <dt><%= food.name %></dt>
-          <dd><%= truncate(strip_tags(food.description), length: 80) %></dd>
-          <dd><%= Restaurant.find_by(id: :restaurant_id) %></dd>
-          <dd>
-            <% food.tags.each do |tag| %>
-              <%= tag.name %>
-            <% end %>
-          </dd>
-        </dl>
-      </td>
-      <td class="list_actions">
-        <%= link_to 'Show', food %><br/>
-        <%= link_to 'Edit', edit_food_path(food) %><br/>
-        <%= link_to 'Destroy', food, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-
+<% if @foods.blank? %>
+  <h4>There are no foods containing the term</h4>
+<% else %>
+  <table>
+    <% @foods.each do |food| %>
+      <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+        <td>
+          <%= image_tag(food.image_url, class: 'list_image') %>
+        </td>
+        <td class="list_description">
+          <dl>
+            <dt><%= food.name %></dt>
+            <dd><%= truncate(strip_tags(food.description), length: 80) %></dd>
+            <dd><%= Restaurant.find_by(id: :restaurant_id) %></dd>
+            <dd>
+              <% food.tags.each do |tag| %>
+                <%= tag.name %>
+              <% end %>
+            </dd>
+          </dl>
+        </td>
+        <td class="list_actions">
+          <%= link_to 'Show', food %><br/>
+          <%= link_to 'Edit', edit_food_path(food) %><br/>
+          <%= link_to 'Destroy', food, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
 <br>
 
 <%= link_to 'New Food', new_food_path %>
+<%= link_to 'Search Foods', foods_search_path %>

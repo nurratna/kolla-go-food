@@ -1,0 +1,25 @@
+<%= form_tag(foods_path, :method => "get", id: "search-form") do %>
+  <div class="field">
+    <%= label_tag :name %>
+    <%= text_field_tag :name, params[:name] %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :description %>
+    <%= text_area_tag :desc, params[:desc] %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :minimum_price %>
+    <%= text_field_tag :min_price, params[:min_price] %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :maximum_price %>
+    <%= text_field_tag :max_price, params[:max_price] %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag "Search", name: nil %>
+  </div>
+<% end %>
