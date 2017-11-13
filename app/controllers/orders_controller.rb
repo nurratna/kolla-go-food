@@ -9,7 +9,11 @@ class OrdersController < ApplicationController
   # GEt /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    if params[:name].blank? && params[:address].blank? && params[:email].blank? && params[:min_total_price].blank? && params[:max_total_price].blank?
+      @orders = Order.all
+    else
+      @orders = Order.search(params[:name], params[:address], params[:email], params[:payment_type], params[:min_total_price], params[:max_total_price])
+    end
   end
 
   def show
@@ -29,6 +33,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.add_line_items(@cart)
+    @order.total_price = @order.set_total_price
     @order.voucher = Voucher.find_by(code: order_params[:code])
     # @order.voucher = Voucher.find_by(order_params[:code])
 

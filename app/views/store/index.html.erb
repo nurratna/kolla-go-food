@@ -1,16 +1,28 @@
 <p id="notice"><%= notice %></p>
 <h1>Your Food Catalog</h1>
 
-<% @foods.each do |food| %>
-  <div class="entry">
-    <%= image_tag(food.image_url) %>
-    <h3><%= food.name %></h3>
-    <%= sanitize(food.description) %>
-    <div class="price_line">
-      <span class="price">
-        <%= number_to_currency(food.price, unit: "Rp ", delimiter: ".", separator: ",") %>
-        <%= button_to 'Add to Cart', line_items_path(food_id: food), remote: true %>
-      </span>
-    </div>
-  </div>
-<% end %>
+<div>
+  <% @restaurants.each do |restaurant| %>
+    <h2><%= restaurant.name %></h2>
+    <%= link_to 'Write Review Restaurant', new_restaurant_review_path(restaurant_id: restaurant) %>
+    <% @foods.each do |food| %>
+        <% if restaurant.id == food.restaurant_id %>
+          <div class="entry">
+            <%= image_tag(food.image_url) %>
+            <h3><%= food.name %></h3>
+            <%= Restaurant.find_by_name(params[food.restaurant_id]) %>
+            <%= sanitize(food.description) %>
+            <div class="price_line">
+              <span class="price">
+                <%= number_to_currency(food.price, unit: "Rp ", delimiter: ".", separator: ",") %>
+                <%= button_to 'Add to Cart', line_items_path(food_id: food), remote: true %>
+              </span>
+            </div>
+            <div class="price_line">
+              <%= link_to 'Write Review Food', new_food_review_path(food_id: food) %>
+            </div>
+          </div>
+        <% end %>
+    <% end %>
+  <% end %>
+</div>

@@ -20,5 +20,27 @@
   <%= @food.price %>
 </p>
 
+<p>
+  <strong>Tags:</strong>
+  <% if @food.tags.empty? %>
+    <%= "-" %>
+  <% else %>
+    <% @food.tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <% if @food.tags.empty? %>
+    <%= "-" %>
+  <% else %>
+    <% @food.tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_food_path(@food) %> |
 <%= link_to 'Back', foods_path %>
