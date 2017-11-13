@@ -6,6 +6,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
   </head>
 
   <body class="<%= controller.controller_name %>">
@@ -25,7 +26,7 @@
 
         <ul>
           <li><%= link_to 'Home', store_index_path %></li>
-          <li><a href="#">My Account</a></li>
+          <li><%= link_to 'My Account', admin_path %></li>
           <li><a href="#">My Orders</a></li>
         </ul>
 

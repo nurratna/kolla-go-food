@@ -2,7 +2,11 @@ class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
   def index
-    @restaurants = Restaurant.all
+    if params[:name].blank? && params[:address].blank? && params[:min_food_count].blank? && params[:max_food_count].blank?
+      @restaurants = Restaurant.all
+    else
+      @restaurants = Restaurant.search(params[:name], params[:address], params[:min_food_count], params[:max_food_count])
+    end
   end
 
   def show
