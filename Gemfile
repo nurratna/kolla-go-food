@@ -46,6 +46,8 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.4.1'
   # controller-testing
   gem 'rails-controller-testing'
+  gem 'rspec_junit_formatter'
+
 end
 
 group :test do
