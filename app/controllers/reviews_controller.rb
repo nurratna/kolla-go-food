@@ -3,8 +3,8 @@ class ReviewsController < ApplicationController
   skip_before_action :authorize
 
   def index
-    # @reviews = Review.all
-    @reviews = Review.where(reviewable_id: @reviewable.id)
+    @reviews = Review.all
+    # @reviews = Review.where(reviewable_id: @reviewable.id)
   end
 
   def new
@@ -12,7 +12,8 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = Review.new(review_params)
+    # @review = Review.new(review_params)
+    @review = @reviewable.reviews.new(review_params) # equivalent what's written on new
 
     respond_to do |format|
       if @review.save
@@ -36,6 +37,21 @@ class ReviewsController < ApplicationController
       end
     end
   end
+
+  # # DELETE /reviews/1
+  # # DELETE /reviews/1.json
+  # def destroy
+  #   @review.destroy
+  #   respond_to do |format|
+  #     if @review.destroy
+  #       format.html { redirect_to reviews_url, notice: 'Review was successfully destroyed.' }
+  #       format.json { head :no_content }
+  #     else
+  #       format.html { redirect_to reviews_path, notice: 'Review is in use. Cannot be destroyed.' }
+  #       format.json { head :no_content }
+  #     end
+  #   end
+  # end
 
   private
     def load_reviewable

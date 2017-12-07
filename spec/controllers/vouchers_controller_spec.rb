@@ -11,7 +11,7 @@ describe VouchersController do
       voucher1 = create(:voucher, code: 'PROMO')
       voucher2 = create(:voucher, code: 'GETPROMO')
       get :index
-      expect(assigns(:vourchers)).to match_array([voucher1, voucher2])
+      expect(assigns(:vouchers)).to match_array([voucher1, voucher2])
     end
 
     it 'render the :index template' do

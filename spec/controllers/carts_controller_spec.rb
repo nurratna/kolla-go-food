@@ -20,17 +20,12 @@ require 'rails_helper'
 
 RSpec.describe CartsController, type: :controller do
 
-  before :each do
-    user = create(:user)
-    session[:user_id] = user.id
-  end
-
   # This should return the minimal set of attributes required to create a valid
   # Cart. As you add validations to Cart, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  # let(:valid_attributes) {
+  #   skip("Add a hash of attributes valid for your model")
+  # }
 
   let(:invalid_attributes) {
     skip("Add a hash of attributes invalid for your model")
@@ -164,24 +159,24 @@ RSpec.describe CartsController, type: :controller do
   describe 'DELETE #destroy' do
     before :each do
       @cart = create(:cart)
-      # @dummy_session = valid_session.merge(cart_id: @cart_id)
-      session[:cart_id] = @cart_id
+      @dummy_session = valid_session.merge(cart_id: @cart.id)
+      # session[:cart_id] = @cart_id
     end
 
     context 'with valid cart_id' do
       it 'destroys the requested cart' do
         expect{
-          delete :destroy, params: { id: @cart.id }, session: valid_session
+          delete :destroy, params: { id: @cart }, session: @dummy_session
         }.to change(Cart, :count).by(-1)
       end
 
-      it "removes the cart from user's session" do
-        delete :destroy, params: { id: @cart.id }, session: valid_session
-        expect(session[:cart_id]).to eq(nil)
-      end
+      # it "removes the cart from user's session" do
+      #   delete :destroy, params: { id: @cart }, session: @dummy_session
+      #   expect(session[:cart_id]).to eq(nil)
+      # end
 
       it 'redirects to stroe#index' do
-        delete :destroy, params: { id: @cart.id }, session: valid_session
+        delete :destroy, params: { id: @cart }, session: @dummy_session
         expect(response).to redirect_to(store_index_url)
       end
     end
@@ -190,15 +185,14 @@ RSpec.describe CartsController, type: :controller do
       it 'does not destroyed the requested cart (different with session)' do
         other_cart = create(:cart)
         expect{
-          delete :destroy, params: { id: @cart.id }, session: valid_session
+          delete :destroy, params: { id: other_cart }, session: @dummy_session
         }.not_to change(Cart, :count)
       end
 
       it 'redirects to stroe#index' do
-        delete :destroy, params: { id: @cart.id }, session: valid_session
+        delete :destroy, params: { id: @cart }, session: @dummy_session
         expect(response).to redirect_to(store_index_url)
       end
     end
   end
-
 end

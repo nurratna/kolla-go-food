@@ -50,5 +50,5 @@ RSpec.describe Cart, type: :model do
     expect(cart.total_price).to eq(70000.0)
   end
 
-  it "does not remove the other user's cart"
+  # it "does not remove the other user's cart"
 end

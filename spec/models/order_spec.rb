@@ -79,7 +79,7 @@ describe Order do
       end
 
       it "can calculate total_price" do
-        expect(@order.total_price).to eq(20000.0)
+        expect(@order.set_total_price).to eq(20000.0)
       end
 
       context "voucher in percent" do
@@ -123,7 +123,7 @@ describe Order do
     end
 
     context "with invalid voucher" do
-      it "can calculate total_price without discount"
+      # it "can calculate total_price without discount"
     end
   end
 end

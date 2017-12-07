@@ -113,11 +113,11 @@ describe OrdersController do
         expect(response).to redirect_to store_index_path
       end
 
-      it 'sends order confirmation email' do
-        expect{
-          post :create, params: { order: attributes_for(:order) }
-        }.to change{ ActionMailer::Base.deliveries.count }.by(1)
-      end
+      # it 'sends order confirmation email' do
+      #   expect{
+      #     post :create, params: { order: attributes_for(:order) }
+      #   }.to change{ ActionMailer::Base.deliveries.count }.by(1)
+      # end
     end
 
     context 'with invalid attributes' do

@@ -5,6 +5,7 @@ FactoryGirl.define do
     name { Faker::Name.name }
     title { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
+    association :reviewable, factory: :food
   end
 
   factory :invalid_review, parent: :review do
